@@ -467,6 +467,31 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'javiorfo/nvim-soil',
+
+    dependencies = { 'javiorfo/nvim-nyctophilia' },
+
+    lazy = true,
+    ft = 'plantuml',
+    opts = {
+      actions = {
+        redraw = false,
+      },
+
+      puml_jar = 'plantuml.jar',
+
+      image = {
+        darkmode = false,
+        format = 'png',
+
+        execute_to_open = function(img)
+          return 'start ' .. img
+        end,
+      },
+    },
+  },
+
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -843,7 +868,7 @@ require('lazy').setup({
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono',
+        nerd_font_variant = 'normal',
       },
 
       completion = {
@@ -880,7 +905,7 @@ require('lazy').setup({
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       require('rose-pine').setup {
-        styles = {},
+        styles = { italic = false },
       }
       vim.cmd.colorscheme 'rose-pine-moon'
     end,
