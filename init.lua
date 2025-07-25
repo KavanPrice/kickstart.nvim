@@ -161,6 +161,11 @@ vim.o.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
 
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
@@ -491,6 +496,43 @@ require('lazy').setup({
         end,
       },
     },
+  },
+
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function()
+      -- This config uses the global vim.g approach
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = 'rainbow-delimiters.strategy.global',
+          vim = 'rainbow-delimiters.strategy.local',
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+          lua = 'rainbow-blocks',
+        },
+        priority = {
+          [''] = 110,
+          lua = 210,
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+        },
+      }
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#eb6f92' }) -- love
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#f6c177' }) -- gold
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#9ccfd8' }) -- foam
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#ebbcba' }) -- rose
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#31748f' }) -- pine
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#c4a7e7' }) -- iris
+      vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#908caa' }) -- subtle
+    end,
   },
 
   -- LSP Plugins
