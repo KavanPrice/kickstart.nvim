@@ -948,7 +948,7 @@ require('lazy').setup({
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       require('rose-pine').setup {
-        styles = { italic = false },
+        styles = { italic = false, transparency = true },
       }
       vim.cmd.colorscheme 'rose-pine-moon'
     end,
