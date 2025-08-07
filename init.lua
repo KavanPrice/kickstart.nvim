@@ -215,6 +215,9 @@ vim.keymap.set('n', '<C-e>c', function()
   vim.cmd('edit ' .. vim.fn.stdpath 'config' .. '/init.lua')
 end, { desc = 'Edit config' })
 
+vim.keymap.set('n', '<C-t>v', ':vsplit | terminal<CR>', { desc = 'Open a vertical terminal' })
+vim.keymap.set('n', '<C-t>h', ':split | terminal<CR>', { desc = 'Open a horizontal terminal' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
