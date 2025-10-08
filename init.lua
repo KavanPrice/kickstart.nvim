@@ -176,6 +176,15 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.expandtab = true
   end,
 })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'gleam',
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.softtabstop = 2
+    vim.bo.expandtab = true
+  end,
+})
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
