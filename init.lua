@@ -984,6 +984,12 @@ require('lazy').setup({
         styles = { italic = false, transparency = true },
       }
       vim.cmd.colorscheme 'rose-pine-moon'
+
+      -- Override specific highlight groups to make tooltips opaque
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#1f1d2e' })
+      vim.api.nvim_set_hl(0, 'FloatBorder', { bg = '#1f1d2e' })
+      vim.api.nvim_set_hl(0, 'Pmenu', { bg = '#1f1d2e' })
+      vim.api.nvim_set_hl(0, 'PmenuSel', { bg = '#26233a' })
     end,
   },
   -- {
