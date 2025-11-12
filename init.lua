@@ -238,6 +238,15 @@ end, { desc = 'Edit config' })
 vim.keymap.set('n', '<C-t>v', ':vsplit | terminal<CR>', { desc = 'Open a vertical terminal' })
 vim.keymap.set('n', '<C-t>h', ':split | terminal<CR>', { desc = 'Open a horizontal terminal' })
 
+vim.keymap.set('i', '<C-u>', function()
+  return vim.fn.trim(vim.fn.system 'uuidgen')
+end, { expr = true, desc = 'Insert UUID' })
+
+vim.keymap.set('n', '<C-u>', function()
+  local uuid = vim.fn.trim(vim.fn.system 'uuidgen')
+  vim.api.nvim_put({ uuid }, 'c', true, true)
+end, { desc = 'Insert UUID' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
