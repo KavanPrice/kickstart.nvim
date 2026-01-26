@@ -168,6 +168,10 @@ vim.opt.softtabstop = 4
 
 vim.opt.shortmess = vim.opt.shortmess + { c = true }
 vim.opt.signcolumn = 'yes'
+vim.opt.shell = 'nu'
+vim.opt.shellcmdflag = '-c'
+vim.opt.shellquote = ''
+vim.opt.shellxquote = ''
 
 -- Language specific tabs
 vim.api.nvim_create_autocmd('FileType', {
