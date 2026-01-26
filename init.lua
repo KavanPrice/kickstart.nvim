@@ -166,6 +166,9 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 
+vim.opt.shortmess = vim.opt.shortmess + { c = true }
+vim.opt.signcolumn = 'yes'
+
 -- Language specific tabs
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
@@ -795,7 +798,6 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         pyright = {},
-        rust_analyzer = {},
         ts_ls = {},
 
         lua_ls = {
@@ -830,6 +832,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'rust-analyzer',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -849,6 +852,27 @@ require('lazy').setup({
       }
       -- Add Gleam LSP
       require('lspconfig').gleam.setup {}
+    end,
+  },
+
+  {
+    'simrat39/rust-tools.nvim',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = function()
+      local rt = require 'rust-tools'
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+      rt.setup {
+        server = {
+          capabilities = capabilities,
+          on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set('n', '<Leader>a', rt.code_action_group.code_action_group, { buffer = bufnr })
+          end,
+        },
+      }
     end,
   },
 
@@ -1016,6 +1040,18 @@ require('lazy').setup({
   --     vim.cmd.colorscheme 'catppuccin'
   --   end,
   -- },
+
+  {
+    'simrat39/rust-tools.nvim',
+    dependencies = { 'neovim/nvim-lspconfig' },
+  },
+  {
+    'nvim-lua/plenary.nvim',
+  },
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
