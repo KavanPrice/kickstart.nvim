@@ -577,7 +577,9 @@ require('lazy').setup({
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && yarn install',
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
     init = function()
       vim.g.mkdp_filetypes = { 'markdown' }
     end,
@@ -1084,7 +1086,6 @@ require('lazy').setup({
       statusline.section_location = function()
         return '%2l:%-2v'
       end
-
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
@@ -1096,7 +1097,7 @@ require('lazy').setup({
     config = function()
       require('nvim-treesitter').setup {
         install_dir = vim.fn.stdpath 'data' .. '/site',
-        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'json', 'yaml' },
         auto_install = true,
         highlight = {
           enable = true,
