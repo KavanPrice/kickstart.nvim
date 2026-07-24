@@ -184,7 +184,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'gleam',
+  pattern = { 'gleam', 'ocaml' },
   callback = function()
     vim.bo.shiftwidth = 2
     vim.bo.tabstop = 2
@@ -542,6 +542,10 @@ require('lazy').setup({
     config = function()
       -- This config uses the global vim.g approach
       vim.g.rainbow_delimiters = {
+        condition = function(bufnr)
+          local ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+          return ok and parser ~= nil
+        end,
         strategy = {
           [''] = 'rainbow-delimiters.strategy.global',
           vim = 'rainbow-delimiters.strategy.local',
@@ -868,6 +872,8 @@ require('lazy').setup({
       }
       -- Add Gleam LSP
       vim.lsp.config('gleam', {})
+      -- Use opam-managed ocamllsp (do not install via Mason — version must match compiler)
+      vim.lsp.enable 'ocamllsp'
     end,
   },
 
@@ -1104,6 +1110,21 @@ require('lazy').setup({
           additional_vim_regex_highlighting = { 'ruby' },
         },
         indent = { enable = true, disable = { 'ruby' } },
+      }
+    end,
+  },
+  { -- Highlight function arguments with distinct colors (rose-pine palette)
+    'm-demare/hlargs.nvim',
+    config = function()
+      require('hlargs').setup {
+        use_colorpalette = true,
+        colorpalette = {
+          { fg = '#f6c177' }, -- gold
+          { fg = '#9ccfd8' }, -- foam
+          { fg = '#c4a7e7' }, -- iris
+          { fg = '#ebbcba' }, -- rose
+          { fg = '#eb6f92' }, -- love
+        },
       }
     end,
   },
