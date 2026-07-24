@@ -513,31 +513,6 @@ require('lazy').setup({
   },
 
   {
-    'javiorfo/nvim-soil',
-
-    dependencies = { 'javiorfo/nvim-nyctophilia' },
-
-    lazy = true,
-    ft = 'plantuml',
-    opts = {
-      actions = {
-        redraw = false,
-      },
-
-      puml_jar = 'plantuml.jar',
-
-      image = {
-        darkmode = false,
-        format = 'png',
-
-        execute_to_open = function(img)
-          return 'start ' .. img
-        end,
-      },
-    },
-  },
-
-  {
     'HiPhish/rainbow-delimiters.nvim',
     config = function()
       -- This config uses the global vim.g approach
